@@ -1,0 +1,7 @@
+FROM adrian/nodebets-web-app
+
+ENV NODE_ENV dev
+
+RUN npm update 
+
+CMD ["npm", "run", "--silent", "test"]

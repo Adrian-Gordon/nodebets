@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.042" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2018-02-12T15:55:37" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Bets API" timestamp="2018-02-12T15:55:37" tests="1" file="/home/adrian/Development/nodebets/src/api/api.spec.js" failures="1" time="0.042">
+    <testcase name="Bets API can return a race" time="0.042" classname="can return a race">
+      <failure><![CDATA[AssertionError: expected '663916' to equal '663917'
+    at Assertion.fail (node_modules/should/cjs/should.js:275:17)
+    at Assertion.Object.defineProperty.value (node_modules/should/cjs/should.js:356:19)
+    at src/api/api.spec.js:79:19
+    at Test._assertFunction (node_modules/supertest/lib/test.js:281:11)
+    at Test.assert (node_modules/supertest/lib/test.js:171:18)
+    at assert (node_modules/supertest/lib/test.js:131:12)
+    at node_modules/supertest/lib/test.js:128:5
+    at Test.Request._getFormData.Request._pipeContinue.Request.request.Request.callback (node_modules/superagent/lib/node/index.js:706:12)
+    at node_modules/superagent/lib/node/index.js:906:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:19:7)
+    at endReadableNT (_stream_readable.js:905:12)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

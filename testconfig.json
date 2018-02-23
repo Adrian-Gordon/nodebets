@@ -1,0 +1,14 @@
+{
+    "logging": {
+      "ileandline": true,
+      "logger": {
+        "console": {
+          "level": "error",
+          "colorize": true,
+          "label": "nodebets",
+          "timestamp": true
+        }
+      }
+
+    }
+}

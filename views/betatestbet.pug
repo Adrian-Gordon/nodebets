@@ -1,0 +1,15 @@
+html
+  head
+    title= venue  
+  body
+    h2= venue + " " + offtime
+    table
+      tr
+        th Name
+        th Status
+        th Probability
+      each horse, index in horses
+        tr
+          td= index 
+          td= horse.status
+          td= horse.winProbability

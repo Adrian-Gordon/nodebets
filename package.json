@@ -1,0 +1,31 @@
+{
+  "name": "nodebets",
+  "version": "1.0.0",
+  "description": "Node/Express version of bets application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js --dburl $DBURL",
+    "lint": "standard --fix --verbose || exit 0",
+    "test": "mocha -R mocha-junit-reporter --reporter-options toConsole=true --conf=testconfig.json src/**/*.spec.js"
+  },
+  "author": "Adrian Gordon",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
+    "http-status": "^1.0.1",
+    "moment": "^2.20.1",
+    "mongodb": "^3.0.1",
+    "nconf": "^0.10.0",
+    "pug": "^2.0.0-rc.4",
+    "request": "^2.83.0",
+    "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.0",
+    "mocha-junit-reporter": "^1.17.0",
+    "should": "^13.2.1",
+    "standard": "^10.0.3",
+    "supertest": "^3.0.0"
+  }
+}

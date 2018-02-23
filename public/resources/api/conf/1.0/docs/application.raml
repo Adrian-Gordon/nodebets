@@ -1,0 +1,28 @@
+#%RAML 1.0
+---
+
+title: Race
+version: 1.0
+protocols: [HTTP]
+baserUri: http://dimplecds.com/
+
+mediaType: [ application/json]
+
+/races:
+	/{raceid}:
+	 uriParameters:
+	 	raceid:
+	 		description: The 6 digit racingpost race identifier for the race
+	 		type: string
+	 		example: "663916"
+	  get:
+	  	displayName: Get Race
+	  	description: Get Race details
+	  	responses:
+	  		200:
+	  		 body:
+	  		  application/json:
+	  		   type: !include schemas/raceschema.json
+	  		   examples:
+	  		    example-1:
+	  		     value: !include examples/get-race-example-1.json
