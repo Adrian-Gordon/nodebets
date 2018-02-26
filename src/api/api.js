@@ -29,6 +29,15 @@ const setupAPI = (app, repository) => {
     })
     .catch(next)
   })
+
+  app.get('/horses/:horseid/:raceid', (req, res, next) => {
+    repository.getHorsePerformances(req.params.raceid,req.params.horseid).then(perfs => {
+      logger.info(JSON.stringify(perfs))
+      res.render('horseperformances',perfs)
+    })
+    .catch(next)
+  })
+
 }
 
 module.exports = Object.assign({}, {setupAPI})

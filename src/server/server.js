@@ -20,6 +20,7 @@ const startServer = (port, repository) => {
     const app = express()
 
     app.set('view engine','pug')
+    app.locals.moment = require('moment');
 
     app.use('/static', express.static('/Users/adriangordon/Development/GP/data/newmongo'))
 

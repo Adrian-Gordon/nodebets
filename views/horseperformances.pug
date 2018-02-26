@@ -1,0 +1,43 @@
+html
+  head
+    title= _id
+  body
+    h2= _id
+    h3= race._id + " " + race.distance.toFixed(2) + ' ' + race.going
+    table
+      tr
+        th raceid
+        th date
+        th days
+        th distance
+        th going
+        th weight
+        th position
+        th price
+        th percent
+        th speed
+        th prediction
+      each perf, index in performances
+        -daysSince = moment(race.date).diff(moment(perf.date),"days")
+        tr(style={color:index === race._id?'green':'black'})
+          td
+            -if(perf.resulturl){
+              a(href="http://www.racingpost.com" + perf.resulturl)
+                =index
+            -}
+            -else{
+             =index
+            -}
+          td= moment(perf.date).format('YYYY-MM-DD')
+          td 
+            -if(daysSince > 0){
+              =daysSince
+            -}
+          td= perf.distance.toFixed(2)
+          td= perf.going
+          td= perf.weight
+          td= perf.position
+          td= '' + perf.price.fractiontop + '/' + perf.price.fractionbottom
+          td= perf.percentofwinningtime.toFixed(2)
+          td= perf.speed.toFixed(2)
+          td t.b.c
