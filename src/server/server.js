@@ -20,6 +20,7 @@ const startServer = (port, repository) => {
     const app = express()
 
     app.set('view engine','pug')
+    app.locals.moment = require('moment');
 
     app.use((err, req, res, next) => {
       reject(new Error('Something went wrong, err: ' + err))

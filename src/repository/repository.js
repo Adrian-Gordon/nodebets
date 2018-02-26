@@ -31,9 +31,32 @@ const repository = (dbConnection) => {
     })
   }
 
+  const getHorsePerformances = (raceid, horseid) => {
+    const collection1 = dbConnection.db('rpdata').collection('horses')
+    const collection2 = dbConnection.db('rpdata').collection('races')
+    return new Promise((resolve, reject) => {
+      collection1.findOne({_id:horseid}, (err, horse) =>{
+        if (err) {
+          reject(new Error('An error occured fetching a horse with id:' + horseid + ' err: ' + err))
+        }
+        collection2.findOne({_id:raceid}, (err, race) =>{
+          if (err) {
+            reject(new Error('An error occured fetching a race with id:' + raceid + ' err: ' + err))
+          }
+          horse.race=race
+          resolve(horse)
+
+        })
+        
+      })
+      
+    })
+  }
+
   return Object.create({
     getRace,
-    getBetaTestBet
+    getBetaTestBet,
+    getHorsePerformances
   })
 }
 
