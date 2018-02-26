@@ -15,7 +15,9 @@ html
         th
       each horse, index in horses
         tr
-          td= index 
+          td
+            a(href="/horses/" + horse.rphorseid + "/" + rpraceid)
+              = index 
           td= horse.status
           td= horse.winProbability.toFixed(3)
           td= horse.bestLayWinPrice + "(" + horse.winLayReturn.toFixed(2) + ")"
