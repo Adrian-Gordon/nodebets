@@ -21,6 +21,8 @@ const startServer = (port, repository) => {
 
     app.set('view engine','pug')
 
+    app.use('/static', express.static('/Users/adriangordon/Development/GP/data/newmongo'))
+
     app.use((err, req, res, next) => {
       reject(new Error('Something went wrong, err: ' + err))
       res.status(500).send('Something went wrong')

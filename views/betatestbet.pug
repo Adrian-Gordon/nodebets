@@ -3,13 +3,23 @@ html
     title= venue  
   body
     h2= venue + " " + offtime
+    img.image(src='/static/' + rpraceid + '.png', style={width:'600px'})
     table
       tr
         th Name
         th Status
         th Probability
+        th Lay (return)
+        th Back (return)
+        th Mode
+        th
       each horse, index in horses
         tr
           td= index 
           td= horse.status
-          td= horse.winProbability
+          td= horse.winProbability.toFixed(3)
+          td= horse.bestLayWinPrice + "(" + horse.winLayReturn.toFixed(2) + ")"
+          td= horse.bestBackWinPrice + "(" + horse.winBackReturn.toFixed(2) + ")"
+          td= horse.distribution.mode.toFixed(3)
+          td
+            img.image(src='/static/' + rpraceid + '-' + horse.imageIndex + '.png', style={width:'400px'})

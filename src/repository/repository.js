@@ -1,4 +1,5 @@
 'use strict'
+var execSync=require('child_process').execSync
 
 var logger = require('../logger/log.js').logger
 
@@ -26,6 +27,22 @@ const repository = (dbConnection) => {
         if (err) {
           reject(new Error('An error occured fetching a betatestbet with id:' + raceid + ' err: ' + err))
         }
+        let hIndex = 0
+        for(let horse in bet.horses){
+          let h = bet.horses[horse]
+          if((h.status == "LOSER")||(h.status == "WINNER")){
+            h.imageIndex = hIndex++
+            //generate the horse images
+            const cmd = "/Users/adriangordon/Development/GP/data/newmongo/plothorse.sh /Users/adriangordon/Development/GP/data/newmongo/" + raceid + " " + h.imageIndex
+            console.log(cmd)
+            const rval = execSync(cmd);
+          }
+
+        }
+         //generate the race image
+        const cmd = "/Users/adriangordon/Development/GP/data/newmongo/plotrace.sh /Users/adriangordon/Development/GP/data/newmongo/" + raceid
+        const rval = execSync(cmd);
+        logger.info("execSync returns: " + rval)
         resolve(bet)
       })
     })
