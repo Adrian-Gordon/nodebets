@@ -31,7 +31,13 @@ nconf.defaults(
     'rprooturl': 'https://www.racingpost.com',
     'scrapedir': '/home/ubuntu/GP/data/scrape-develop/',
     'datadir': '/home/ubuntu/GP/data',
-    'delay': 1
+    'delay': 1,
+     "maxdistdiff":100000000000000000,
+     "maxperfage":120,
+     "minwinspeedpercent":0.97,
+     "maxspeeds":[18.8,18.8,18.1,18.0,18.0,17.8,17.7,17.5,17.4,17.1,17.1,16.9,16.9,16.9,16.9,16.8,16.6,16.4,16.3,16.3,16.0,16.0,16.0],
+     "minspeedfactor":0.80
+
 
   })
 

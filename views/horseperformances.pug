@@ -17,6 +17,7 @@ html
         th percent
         th speed
         th prediction
+        th exclude
       each perf, index in performances
         -daysSince = moment(race.date).diff(moment(perf.date),"days")
         tr(style={color:index === race._id?'green':'black'})
@@ -41,3 +42,4 @@ html
           td= perf.percentofwinningtime.toFixed(2)
           td= perf.speed.toFixed(2)
           td t.b.c
+          td= perf.exclude
