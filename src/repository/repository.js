@@ -51,6 +51,14 @@ const repository = (dbConnection) => {
   }
 
   const getHorsePerformances = (raceid, horseid) => {
+    const goingMappings=nconf.get("goingMappings")
+    const gpnode=require(nconf.get("gpnodepath"));
+
+    const rule=nconf.get("rule")
+    const stats=nconf.get("observationStats")
+    const node=new gpnode().parseNode(rule,nconf.get('variables'),nconf.get('functionSet'))
+    const minfofx=nconf.get('minfofx')
+    const maxfofx=nconf.get('maxfofx')
     const collection1 = dbConnection.db('rpdata').collection('horses')
     const collection2 = dbConnection.db('rpdata').collection('races')
     return new Promise((resolve, reject) => {
@@ -65,6 +73,14 @@ const repository = (dbConnection) => {
           let performances=horse.performances
           let perfids=Object.keys(performances)
           let nperfs=perfids.length;
+          let targetPerformance=horse.performances[raceid]
+          if(!targetPerformance){
+            if(horse.status !== 'REMOVED'){
+              logger.error("No performance found for horse " +horse._id + " in race " + rpraceid);
+              logger.error(JSON.stringify(hs))
+        
+            }
+          }
           for(let i=0;i<nperfs;i++){
             let perfid=perfids[i]
             let performance=performances[perfid]
@@ -157,6 +173,32 @@ const repository = (dbConnection) => {
              performance["exclude"] = "distance too different"
             }
             logger.info(goodPerf + " "  + JSON.stringify(performance))
+
+            let observation = {
+                perfid:perfid,
+                speed1:performance.speed,
+                going1:goingMappings[performance.going],
+                going2:goingMappings[race.going],
+                goingdiff: goingMappings[race.going]-goingMappings[performance.going],
+                distance1:performance.distance,
+                distance2:race.distance,
+                distancediff:race.distance - performance.distance,
+                weight1:performance.weight,
+                weight2:targetPerformance.weight,
+                weightdiff:targetPerformance.weight -performance.weight
+            }
+            logger.info(JSON.stringify(observation))
+             //Now do the prediction
+            let predictedVal=node.eval(observation)
+            let predictedProportion=(predictedVal - minfofx)/(maxfofx - minfofx)
+            let predictedChange=nconf.get('observationStats').minSpeedDif.dif +(predictedProportion *(nconf.get('observationStats').maxSpeedDif.dif - nconf.get('observationStats').minSpeedDif.dif))
+            //var observation=nconf.get("observation");
+
+            let predictedSpeed=observation.speed1 + (predictedChange *  observation.speed1)
+            logger.info(predictedVal + " " + predictedProportion + " " + predictedChange + " " + predictedSpeed)
+
+            performance["prediction"] = predictedSpeed
+
 
           }
           horse.race=race
