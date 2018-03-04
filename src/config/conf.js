@@ -32,7 +32,7 @@ nconf.defaults(
     'scrapedir': '/home/ubuntu/GP/data/scrape-develop/',
     'datadir': '/home/ubuntu/GP/data',
      "goingMappings":{"Firm":-3,"Good To Firm":-2,"Standard":-1,"Good":-1,"Good To Soft":0,"Good To Yielding":-1,"Standard To Slow":0,"Yielding":1,"Yielding To Soft":1,"Soft":1,"Soft To Heavy":2,"Heavy":3,"Very Soft":3},
-    "gpnodepath":"/home/adrian/Development/Node/GPNode",
+    "gpnodepath":"/Users/adriangordon/Development/GP/Node/GPNode",
      "variables":['speed1','distance1','distance2','distancediff','weight1','weight2','weightdiff','going1','going2','goingdiff'],
      "functionSet":['+','-','*','/','^','if<='],
       "rule":["+","*","-","*","if<=","speed1","if<=","weight1",6.5858,"^",-6.4670,"/","*",-7.2541,-3.6690,"if<=","weight2",0.2758,"-","-",6.5858,"weight2","/","*","*","-",-4.1061,"weight2","distancediff","+",5.2645,5.8362,"if<=","speed1",0.2758,"weight1","weight1","weight1","+",5.2645,5.8362,"*","*",5.2645,"if<=","*","weight1","*",6.6996,"distancediff","if<=","/","*","*","*","*","-","-",-6.4670,"if<=","*","goingdiff",0.6722,"goingdiff","speed1",6.6996,"weight2","distancediff","+",5.2645,5.8362,"distancediff","+",5.2645,5.8362,"if<=","speed1",0.2758,"weight1","weight1","if<=","weight1",6.5858,"^",5.2645,"+","weight2","distancediff",6.6996,"*","*",5.2645,"if<=","*",0.6722,"goingdiff",0.2758,-3.6690,"weight1",0.6722,"weight1","weight2","weight1",0.6722,"weight1","-",-6.4670,"if<=","*","goingdiff","speed1",0.6722,"speed1","speed1","distance1","goingdiff","/","*","*","-","-",-6.4670,"*",-7.2541,-3.6690,"weight2","distancediff","+",5.2645,5.2645,"if<=","speed1",0.2758,"weight1","if<=","speed1","goingdiff",-3.6690,"weight1"],
