@@ -5,7 +5,6 @@ const logger = require('../logger/log.js').logger
 const moment = require('moment')
 
 const getDateCards = (date, outputbatch) => {
-  logger.info('date: ' + date + ' outputbatch: ' + outputbatch)
   let result = []
   return new Promise((resolve, reject) => {
     if (typeof date === 'undefined') {

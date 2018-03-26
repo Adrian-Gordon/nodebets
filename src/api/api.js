@@ -4,7 +4,6 @@ const status = require('http-status')
 const rpWrapper = require('../rpwrapper/rpwrapper.js')
 
 const setupAPI = (app, repository) => {
-  logger.info('setupAPI')
   app.get('/races/:id', (req, res, next) => {
     repository.getRace(req.params.id).then(race => {
       res.status(status.OK).json(race)
@@ -13,7 +12,6 @@ const setupAPI = (app, repository) => {
   })
  
   app.get('/getdatecards', (req, res, next) => {
-    logger.info(JSON.stringify(req.query))
     rpWrapper.getDateCards(req.query.date, req.query.outputbatch).then(cards => {
       if (typeof req.params.outputbatch !== 'undefined' && req.params.outputbatch === 'true') {
         res.status(status.OK).send(cards)
@@ -24,7 +22,6 @@ const setupAPI = (app, repository) => {
 
    app.get('/betatestbets/:id', (req, res, next) => {
     repository.getBetaTestBet(req.params.id).then(bet => {
-      logger.info(JSON.stringify(bet))
       res.render('betatestbet',bet)
     })
     .catch(next)
@@ -32,7 +29,6 @@ const setupAPI = (app, repository) => {
 
   app.get('/horses/:horseid/:raceid', (req, res, next) => {
     repository.getHorsePerformances(req.params.raceid,req.params.horseid).then(perfs => {
-      logger.info(JSON.stringify(perfs))
       res.render('horseperformances',perfs)
     })
     .catch(next)

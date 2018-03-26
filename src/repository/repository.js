@@ -6,10 +6,8 @@ var logger = require('../logger/log.js').logger
 const nconf = require('../config/conf.js').nconf
 
 const repository = (dbConnection) => {
-  logger.info('repository ' + dbConnection)
 
   const getRace = (raceid) => {
-    logger.info('In getRace ' + raceid + ' connection: ' + dbConnection.constructor.name)
     const collection = dbConnection.db('rpdata').collection('races')
     return new Promise((resolve, reject) => {
       collection.findOne({_id: raceid}, (err, race) => {
@@ -22,7 +20,6 @@ const repository = (dbConnection) => {
   }
 
   const getBetaTestBet = (raceid) => {
-    //logger.info('In getRace ' + raceid + ' connection: ' + dbConnection.constructor.name)
     const collection = dbConnection.db('rpdata').collection('betatestbets')
     return new Promise((resolve, reject) => {
       collection.findOne({rpraceid: raceid}, (err, bet) => {
@@ -139,15 +136,12 @@ const repository = (dbConnection) => {
             let msindex=Math.floor((performance.distance -1000.0)/100.0);
             let maxSpeed=nconf.get("maxspeeds")[msindex]
             if(performance.speed > maxSpeed){
-              //logger.info("badperf because speed is too high");
-              //console.log(performance.speed +" : " + " index: " + msindex + " " + nconf.get("maxspeeds")[msindex])
               goodPerf=false
               performance["exclude"] = "too fast"
               
             }
             let minSpeedFactor=nconf.get("minspeedfactor")
             if(performance.speed < (minSpeedFactor * maxSpeed)){
-              //console.log("Too slow a performance: " + performance.speed + " " + (minSpeedFactor * maxSpeed));
               goodPerf=false
               performance.exclude = "too slow"
             }
@@ -166,13 +160,11 @@ const repository = (dbConnection) => {
               goodPerf=false
               performance["exclude"] = "wrong code"
             }
-            //logger.info(hid + " " + perfid + " " + performance.date + " " + goodPerf);
             if(Math.abs(race.distance - performance.distance) > nconf.get('maxdistdiff')){
               
               goodPerf=false
              performance["exclude"] = "distance too different"
             }
-            logger.info(goodPerf + " "  + JSON.stringify(performance))
 
             let observation = {
                 perfid:perfid,
@@ -187,7 +179,6 @@ const repository = (dbConnection) => {
                 weight2:targetPerformance.weight,
                 weightdiff:targetPerformance.weight -performance.weight
             }
-            logger.info(JSON.stringify(observation))
              //Now do the prediction
             let predictedVal=node.eval(observation)
             let predictedProportion=(predictedVal - minfofx)/(maxfofx - minfofx)
@@ -195,7 +186,6 @@ const repository = (dbConnection) => {
             //var observation=nconf.get("observation");
 
             let predictedSpeed=observation.speed1 + (predictedChange *  observation.speed1)
-            logger.info(predictedVal + " " + predictedProportion + " " + predictedChange + " " + predictedSpeed)
 
             performance["prediction"] = predictedSpeed
 
@@ -223,7 +213,6 @@ const repository = (dbConnection) => {
     let difference_ms = date2_ms - date1_ms
     
     let days = Math.floor(difference_ms/one_day) 
-    logger.info(date1 + " " + date2 + " " + days)
     return Math.abs(days)
   }
 
@@ -235,20 +224,16 @@ const repository = (dbConnection) => {
 }
 
 const getRepository = (connection) => {
-  logger.info('In getRepository, connection is: ' + connection)
   return new Promise((resolve, reject) => {
-    logger.info('in getRepository promise, connection is: ' + connection)
     if (!connection) {
-      logger.info('go reject')
       reject(new Error('No Database Connection provided'))
     } else {
-      logger.info('go resolve')
       resolve(repository(connection))
     }
   })
 }
 
-// logger.info("getRepository: " + getRepository);
+
 
 module.exports = Object.assign({}, {getRepository})
-// module.exports = {getRepository};
+

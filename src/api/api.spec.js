@@ -54,7 +54,6 @@ describe('Bets API', () => {
 
   let testRepo = {
     getRace () {
-      logger.info("calling testRepo getRace");
       return Promise.resolve(testRace)
     }
   }
@@ -74,7 +73,6 @@ describe('Bets API', () => {
     request(app)
       .get('/races/663916')
       .expect((res) => {
-        logger.info("ID: " + res.body._id)
         let id = res.body._id
         id.should.eql("663916")
       })
